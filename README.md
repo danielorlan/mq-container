@@ -11,6 +11,20 @@ Run [IBM® MQ](http://www-03.ibm.com/software/products/en/ibm-mq) in a container
 
 You can build an image containing either IBM MQ Advanced, or IBM MQ Advanced for Developers.  The developer image includes a [default developer configuration](docs/developer-config.md), to make it easier to get started.  There is also an [incubating](incubating) folder for additional images for other MQ components, which you might find useful.
 
+## AMQP
+This image installs the MQSeriesAMQP component, and starts the `SYSTEM.DEF.AMQP` channel, and disabled authentication on the QM
+
+`docker build -t mq-container-amqp -f Dockerfile-server .`
+
+### create volume and network for the container
+`docker volume create mqamqp`
+
+`docker network creat mq-demo-network`
+
+run the container as dev, with QM1, and expose 5672 as 5674
+
+`docker run -e LICENSE=accept -e MQ_QMGR_NAME=QM1 --volume mqamqp:/mnt/mqm -p 1424:1414 -p 9454:9443 -p 5674:5672 --network mq-demo-network --network-alias qmgr --detach --env MQ_APP_PASSWORD=passw0rd --env MQ_DEV=true mq-container-amqp:latest`
+
 ## Build
 
 After extracting the code from this repository, you can follow the [build documentation](docs/building.md) to build an image.
