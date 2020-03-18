@@ -13,7 +13,8 @@
 # limitations under the License.
 
 ARG BASE_IMAGE=registry.redhat.io/ubi8/ubi-minimal
-ARG BASE_TAG=8.1-279
+# ARG BASE_TAG=8.1-279
+ARG BASE_TAG=latest
 ###############################################################################
 # Build stage to build Go code
 ###############################################################################
